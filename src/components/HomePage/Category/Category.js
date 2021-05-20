@@ -109,7 +109,7 @@ const Category = ({ categories }) => {
   };
   console.log("filtered data", handleDataFilter());
   const filteredData = handleDataFilter();
-  // console.log(checked);
+  console.log(checked);
 
   return (
     <div>
