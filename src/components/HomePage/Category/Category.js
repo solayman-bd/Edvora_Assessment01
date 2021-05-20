@@ -14,10 +14,8 @@ const Category = ({ categories }) => {
 
     setChecked(newChecked);
   };
-  // const filteredData = categories.map((data1) =>
-  //   data1.filter((data2) => checked.category === data2.category)
-  // );
-  const filteredData = () => {
+
+  const handleDataFilter = () => {
     if (
       checked.category !== "default" &&
       checked.state !== "default" &&
@@ -35,16 +33,89 @@ const Category = ({ categories }) => {
               checked.city === data2.location.city
           )
       );
+    } else if (
+      checked.category === "default" &&
+      checked.state !== "default" &&
+      checked.city !== "default"
+    ) {
+      return categories.map(
+        (data) =>
+          data.length > 0 &&
+          data.filter(
+            (data2) =>
+              checked.state === data2.location.state &&
+              checked.city === data2.location.city
+          )
+      );
+    } else if (
+      checked.category !== "default" &&
+      checked.state === "default" &&
+      checked.city !== "default"
+    ) {
+      return categories.map(
+        (data) =>
+          data.length > 0 &&
+          data.filter(
+            (data2) =>
+              checked.category === data2.category &&
+              checked.city === data2.location.city
+          )
+      );
+    } else if (
+      checked.category !== "default" &&
+      checked.state !== "default" &&
+      checked.city === "default"
+    ) {
+      return categories.map(
+        (data) =>
+          data.length > 0 &&
+          data.filter(
+            (data2) =>
+              checked.category === data2.category &&
+              checked.state === data2.location.state
+          )
+      );
+    } else if (
+      checked.category !== "default" &&
+      checked.state === "default" &&
+      checked.city === "default"
+    ) {
+      return categories.map(
+        (data) =>
+          data.length > 0 &&
+          data.filter((data2) => checked.category === data2.category)
+      );
+    } else if (
+      checked.category === "default" &&
+      checked.state !== "default" &&
+      checked.city === "default"
+    ) {
+      return categories.map(
+        (data) =>
+          data.length > 0 &&
+          data.filter((data2) => checked.state === data2.location.state)
+      );
+    } else if (
+      checked.category === "default" &&
+      checked.state === "default" &&
+      checked.city !== "default"
+    ) {
+      return categories.map(
+        (data) =>
+          data.length > 0 &&
+          data.filter((data2) => checked.city === data2.location.city)
+      );
     } else return categories;
   };
-  console.log("filtered data", filteredData());
-  console.log(checked);
+  console.log("filtered data", handleDataFilter());
+  const filteredData = handleDataFilter();
+  // console.log(checked);
 
   return (
     <div>
       <div>
         <h2>Filter Products: </h2>
-        <label for="category">Category:</label>
+        <label htmlFor="category">Category:</label>
         <select
           id="category"
           name="category"
@@ -58,7 +129,7 @@ const Category = ({ categories }) => {
               )
           )}
         </select>
-        <label for="state">State:</label>
+        <label htmlFor="state">State:</label>
         <select
           id="state"
           name="state"
@@ -67,14 +138,15 @@ const Category = ({ categories }) => {
           <option value="default">Default</option>
           {categories.map(
             (data) =>
-              data.length > 0 && (
-                <option value={data[0].location.state}>
-                  {data[0].location.state}
+              data.length > 0 &&
+              data.map((data2) => (
+                <option value={data2.location.state}>
+                  {data2.location.state}
                 </option>
-              )
+              ))
           )}
         </select>
-        <label for="city">City:</label>
+        <label htmlFor="city">City:</label>
         <select
           id="city"
           name="city"
@@ -84,15 +156,16 @@ const Category = ({ categories }) => {
           <option value="default">Default</option>
           {categories.map(
             (data) =>
-              data.length > 0 && (
-                <option value={data ? data[0].location.city : null}>
-                  {data[0].location.city}
+              data.length > 0 &&
+              data.map((data2) => (
+                <option value={data2.location.city}>
+                  {data2.location.city}
                 </option>
-              )
+              ))
           )}
         </select>
       </div>
-      {categories.map(
+      {filteredData.map(
         (data) =>
           data.length > 0 && (
             <div style={{ border: "1px solid red", margin: "5px" }}>
