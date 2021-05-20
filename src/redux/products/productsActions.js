@@ -1,7 +1,7 @@
 import {
-  FETCH_USERS_REQUEST,
-  FETCH_USERS_SUCCESS,
-  FETCH_USERS_FAILURE,
+  FETCH_PRODUCTS_REQUEST,
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAILURE,
 } from "./productsTypes";
 
 export const fetchProducts = () => {
@@ -21,20 +21,20 @@ export const fetchProducts = () => {
 
 export const fetchProductsRequest = () => {
   return {
-    type: FETCH_USERS_REQUEST,
+    type: FETCH_PRODUCTS_REQUEST,
   };
 };
 
 export const fetchProductsSuccess = (products) => {
   return {
-    type: FETCH_USERS_SUCCESS,
+    type: FETCH_PRODUCTS_SUCCESS,
     payload: products,
   };
 };
 
 export const fetchProductsFailure = (error) => {
   return {
-    type: FETCH_USERS_FAILURE,
+    type: FETCH_PRODUCTS_FAILURE,
     payload: error,
   };
 };
